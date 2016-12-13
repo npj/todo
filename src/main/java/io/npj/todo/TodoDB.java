@@ -25,6 +25,10 @@ public class TodoDB {
         createTables();
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     public PreparedStatement prepareInsert(String tableName, String [] colummns) throws SQLException {
         StringBuilder builder = new StringBuilder("INSERT INTO ")
                 .append(tableName)

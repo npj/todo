@@ -15,7 +15,7 @@ public class BaseService {
 
         ResultSet rs = stmt.getGeneratedKeys();
         rs.next();
-        model.setId(rs.getInt(0));
+        model.setId(rs.getInt("id"));
 
         return true;
     }
