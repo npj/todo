@@ -27,9 +27,8 @@ public class ItemsController extends Controller {
 		if (params.isPresent()) {
 			try {
 				ListModel list = getList(params.get());
-				ItemIndexView itemIndexView = new ItemIndexView();
-				itemIndexView.addCommandListener(new ItemIndexCommandListener(list));
-				itemIndexView.render(list.getName(), itemService.fetchAll(list));
+				ItemIndexView itemIndexView = new ItemIndexView(list);
+				itemIndexView.render(itemService.fetchAll(list));
 			} catch (SQLException | IOException e) {
 				Todo.logException(e);
 			}

@@ -1,6 +1,7 @@
 package io.npj.todo.items;
 
 import io.npj.todo.console.ConsoleView;
+import io.npj.todo.lists.ListModel;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,8 +23,15 @@ public class ItemIndexView extends ConsoleView {
 	private static final String PROMPT = "> ";
 	private static final String COLSEP = "\t|\t";
 
-	public void render(String listName, List<ItemModel> items) throws IOException {
-		console.setHeader(String.format(HEADER, listName));
+	private final ListModel list;
+
+	public ItemIndexView(ListModel list) {
+		this.list = list;
+		addCommandListener(new ItemIndexCommandListener(list));
+	}
+
+	public void render(List<ItemModel> items) throws IOException {
+		console.setHeader(String.format(HEADER, list.getName()));
 
 		StringBuilder bodyBuilder = new StringBuilder("\n");
 

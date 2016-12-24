@@ -23,7 +23,6 @@ public class ListsController extends Controller {
 	public void index(Optional<Map<String, String>> params) {
 		try {
 			ListIndexView listIndexView = new ListIndexView();
-			listIndexView.addCommandListener(new ListIndexCommandListener());
 			listIndexView.render(listService.fetchAll());
 		} catch (SQLException | IOException e) {
 			Todo.logException(e);

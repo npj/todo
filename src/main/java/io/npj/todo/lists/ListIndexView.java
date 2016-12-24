@@ -22,6 +22,10 @@ public class ListIndexView extends ConsoleView {
 	private static final String PROMPT = "> ";
 	private static final String COLSEP = "\t|\t";
 
+	public ListIndexView() {
+		addCommandListener(new ListIndexCommandListener());
+	}
+
 	public void render(List<ListModel> lists) throws IOException {
 		console.setHeader(HEADER);
 
