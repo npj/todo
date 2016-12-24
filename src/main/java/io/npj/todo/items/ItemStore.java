@@ -5,6 +5,7 @@ import io.npj.todo.mvc.Model;
 import io.npj.todo.mvc.Store;
 import io.npj.todo.lists.ListModel;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,14 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by pbrindisi on 12/21/16.
  */
 public class ItemStore extends Store {
+	@Inject
+	public ItemStore(Optional<DB> db) {
+		super(db);
+	}
+
 	public List<ItemModel> fetchAll(ListModel list) throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_items WHERE list_id = ?";
-		final Connection conn = DB.getInstance().getConnection();
+		final Connection conn = getDB().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		List<ItemModel> results = new ArrayList<>();
 
@@ -39,7 +46,7 @@ public class ItemStore extends Store {
 	}
 
 	public boolean create(ListModel list, ItemModel item) throws SQLException, DB.DataFileException {
-		DB db = DB.getInstance();
+		DB db = getDB();
 
 		PreparedStatement stmt = db.prepareInsert(
 				"todo_items",
@@ -68,7 +75,7 @@ public class ItemStore extends Store {
 	}
 
 	public void delete(ListModel list, Integer id) throws SQLException, DB.DataFileException {
-		DB db = DB.getInstance();
+		DB db = getDB();
 		Connection conn = db.getConnection();
 
 		final String sql = "DELETE FROM todo_items WHERE list_id = ? AND id = ?";

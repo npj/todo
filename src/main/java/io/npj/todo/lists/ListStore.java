@@ -4,6 +4,7 @@ import io.npj.todo.DB;
 import io.npj.todo.mvc.Model;
 import io.npj.todo.mvc.Store;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,14 +12,20 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by npj on 12/12/16.
  */
 public class ListStore extends Store {
+	@Inject
+	public ListStore(Optional<DB> db) {
+		super(db);
+	}
+
 	public ListModel fetchOne(int listId) throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_lists WHERE id = ?";
-		final Connection conn = DB.getInstance().getConnection();
+		final Connection conn = getDB().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, listId);
 
@@ -29,7 +36,7 @@ public class ListStore extends Store {
 
 	public List<ListModel> fetchAll() throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_lists";
-		final Connection conn = DB.getInstance().getConnection();
+		final Connection conn = getDB().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		List<ListModel> results = new ArrayList<>();
 
@@ -42,7 +49,7 @@ public class ListStore extends Store {
 	}
 
 	public boolean create(ListModel list) throws SQLException, DB.DataFileException {
-		DB db = DB.getInstance();
+		DB db = getDB();
 
 		PreparedStatement stmt = db.prepareInsert(
 				"todo_lists",
@@ -70,7 +77,7 @@ public class ListStore extends Store {
 	}
 
 	public void delete(Integer id) throws SQLException, DB.DataFileException {
-		DB db = DB.getInstance();
+		DB db = getDB();
 		Connection conn = db.getConnection();
 
 		final String listSql = "DELETE FROM todo_lists WHERE id = ?";

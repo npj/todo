@@ -7,6 +7,8 @@ import io.npj.todo.Loop;
 import io.npj.todo.TodoApp;
 import io.npj.todo.lists.ListModel;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,12 +18,16 @@ import java.util.Optional;
 /**
  * Created by pbrindisi on 12/16/16.
  */
+@Singleton
 public class ItemsController extends Controller {
-	private ListStore listStore = new ListStore();
-	private ItemStore itemStore = new ItemStore();
+	private final ListStore listStore;
+	private final ItemStore itemStore;
 
-	public ItemsController() {
+	@Inject
+	public ItemsController(ListStore listStore, ItemStore itemStore) {
 		super("ItemsController");
+		this.listStore = listStore;
+		this.itemStore = itemStore;
 	}
 
 	public void index(Optional<Map<String, String>> params) {

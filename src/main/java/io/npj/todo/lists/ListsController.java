@@ -5,6 +5,8 @@ import io.npj.todo.mvc.Controller;
 import io.npj.todo.Loop;
 import io.npj.todo.TodoApp;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
@@ -13,12 +15,14 @@ import java.util.Optional;
 /**
  * Created by pbrindisi on 12/16/16.
  */
+@Singleton
 public class ListsController extends Controller {
-	private final ListStore listStore = new ListStore();
+	private final ListStore listStore;
 
-	public ListsController() {
+	@Inject
+	public ListsController(ListStore listStore) {
 		super("ListsController");
-
+		this.listStore = listStore;
 	}
 
 	public void index(Optional<Map<String, String>> params) {
