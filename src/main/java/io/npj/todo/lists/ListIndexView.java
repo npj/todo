@@ -2,6 +2,7 @@ package io.npj.todo.lists;
 
 import io.npj.todo.console.ConsoleView;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ListIndexView extends ConsoleView {
 	private static final String PROMPT = "> ";
 	private static final String COLSEP = "\t|\t";
 
+	@Inject
 	public ListIndexView() {
 		addCommandListener(new ListIndexCommandListener());
 	}

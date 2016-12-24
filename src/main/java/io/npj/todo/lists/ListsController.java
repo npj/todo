@@ -6,6 +6,7 @@ import io.npj.todo.Loop;
 import io.npj.todo.TodoApp;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import java.io.IOException;
 import java.sql.SQLException;
