@@ -1,9 +1,6 @@
 package io.npj.todo;
 
-import io.npj.todo.DB;
-import io.npj.todo.lists.TestDB;
 import junit.framework.TestCase;
-import org.junit.Before;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

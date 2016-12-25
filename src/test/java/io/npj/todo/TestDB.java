@@ -1,4 +1,4 @@
-package io.npj.todo.lists;
+package io.npj.todo;
 
 import io.npj.todo.DB;
 
