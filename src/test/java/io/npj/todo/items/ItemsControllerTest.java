@@ -56,7 +56,7 @@ public class ItemsControllerTest extends TestCase {
 	 */
 	public void testIndex() throws Exception {
 		int listId = 123;
-		ListModel list = new ListModel();
+		ListModel list = mock(ListModel.class);
 		List<ItemModel> items = new ArrayList<>();
 
 		when(mockListService.fetchOne(listId)).thenReturn(list);
