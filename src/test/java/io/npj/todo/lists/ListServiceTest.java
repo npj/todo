@@ -1,10 +1,8 @@
 package io.npj.todo.lists;
 
-import io.npj.todo.DB;
+import io.npj.todo.DbTestCase;
 import io.npj.todo.mvc.Model;
-import junit.framework.TestCase;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.Optional;

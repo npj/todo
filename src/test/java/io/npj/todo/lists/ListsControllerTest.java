@@ -18,15 +18,15 @@ import static org.mockito.Mockito.when;
 public class ListsControllerTest extends TestCase {
 	ListService mockListService;
 	ListIndexView mockListIndexView;
-	Provider<ListIndexView> mockListIndexViewProvider;
+	ListViewFactory mockListViewFactory;
 	ListsController listsController;
 
 	public void setUp() throws Exception {
 		super.setUp();
 		mockListService = mock(ListService.class);
 		mockListIndexView = mock(ListIndexView.class);
-		mockListIndexViewProvider = () -> mockListIndexView;
-		listsController = new ListsController(mockListService, mockListIndexViewProvider);
+		mockListViewFactory = mock(ListViewFactory.class);
+		listsController = new ListsController(mockListService, mockListViewFactory);
 	}
 
 	/**
@@ -61,6 +61,7 @@ public class ListsControllerTest extends TestCase {
 	public void testIndex() throws Exception {
 		List<ListModel> mockLists = new ArrayList<>();
 		when(mockListService.fetchAll()).thenReturn(mockLists);
+		when(mockListViewFactory.createIndexView()).thenReturn(mockListIndexView);
 		listsController.index(Optional.empty());
 		verify(mockListIndexView).render(mockLists);
 	}

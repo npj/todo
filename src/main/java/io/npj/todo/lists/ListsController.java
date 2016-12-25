@@ -19,16 +19,18 @@ import java.util.Optional;
 @Singleton
 public class ListsController extends Controller {
 	private final ListStore listStore;
+	private final ListViewFactory listViewFactory;
 
 	@Inject
-	public ListsController(ListStore listStore) {
+	public ListsController(ListStore listStore, ListViewFactory listViewFactory) {
 		super("ListsController");
 		this.listStore = listStore;
+		this.listViewFactory = listViewFactory;
 	}
 
 	public void index(Optional<Map<String, String>> params) {
 		try {
-			ListIndexView listIndexView = new ListIndexView();
+			ListIndexView listIndexView = listViewFactory.createIndexView();
 			listIndexView.render(listStore.fetchAll());
 		} catch (SQLException | DB.DataFileException | IOException e) {
 			TodoApp.logException(e);

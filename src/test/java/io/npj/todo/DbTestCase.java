@@ -1,6 +1,7 @@
-package io.npj.todo.lists;
+package io.npj.todo;
 
 import io.npj.todo.DB;
+import io.npj.todo.lists.TestDB;
 import junit.framework.TestCase;
 import org.junit.Before;
 
@@ -11,8 +12,8 @@ import java.sql.Statement;
 /**
  * Created by pbrindisi on 12/23/16.
  */
-public class DbTestCase extends TestCase {
-	DB testDB;
+public abstract class DbTestCase extends TestCase {
+	protected DB testDB;
 
 	@Override
 	protected void setUp() throws Exception {

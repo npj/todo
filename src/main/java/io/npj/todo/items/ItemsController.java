@@ -22,19 +22,21 @@ import java.util.Optional;
 public class ItemsController extends Controller {
 	private final ListStore listStore;
 	private final ItemStore itemStore;
+	private final ItemViewFactory itemViewFactory;
 
 	@Inject
-	public ItemsController(ListStore listStore, ItemStore itemStore) {
+	public ItemsController(ListStore listStore, ItemStore itemStore, ItemViewFactory itemViewFactory) {
 		super("ItemsController");
 		this.listStore = listStore;
 		this.itemStore = itemStore;
+		this.itemViewFactory = itemViewFactory;
 	}
 
 	public void index(Optional<Map<String, String>> params) {
 		if (params.isPresent()) {
 			try {
 				ListModel list = getList(params.get());
-				ItemIndexView itemIndexView = new ItemIndexView(list);
+				ItemIndexView itemIndexView = itemViewFactory.createIndexView(list);
 				itemIndexView.render(itemStore.fetchAll(list));
 			} catch (SQLException | IOException | DB.DataFileException e) {
 				TodoApp.logException(e);
