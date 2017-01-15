@@ -80,17 +80,4 @@ public class ListServiceTest extends DbTestCase {
 		assertEquals(Model.unparseDate(createdAt), Model.unparseDate(model.getCreatedAt()));
 		assertEquals(Model.unparseDate(updatedAt), Model.unparseDate(model.getUpdatedAt()));
 	}
-
-	public void testFetchAll() throws Exception {
-
-	}
-
-	public void testCreate() throws Exception {
-
-	}
-
-	public void testDelete() throws Exception {
-
-	}
-
 }
