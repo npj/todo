@@ -1,6 +1,6 @@
 package io.npj.todo.mvc;
 
-import io.npj.todo.Todo;
+import io.npj.todo.TodoApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ public abstract class Controller {
 		try {
 			return controllerClass.newInstance();
 		} catch(InstantiationException | IllegalAccessException e) {
-			Todo.logException(e);
+			TodoApp.logException(e);
 			return null;
 		}
 	}

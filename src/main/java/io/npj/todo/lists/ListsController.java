@@ -3,7 +3,7 @@ package io.npj.todo.lists;
 import io.npj.todo.DB;
 import io.npj.todo.mvc.Controller;
 import io.npj.todo.Loop;
-import io.npj.todo.Todo;
+import io.npj.todo.TodoApp;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class ListsController extends Controller {
 			ListIndexView listIndexView = new ListIndexView();
 			listIndexView.render(listService.fetchAll());
 		} catch (SQLException | DB.DataFileException | IOException e) {
-			Todo.logException(e);
+			TodoApp.logException(e);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class ListsController extends Controller {
 			list.setName(name);
 			listService.create(list);
 		} catch(SQLException | DB.DataFileException e) {
-			Todo.logException(e);
+			TodoApp.logException(e);
 		}
 
 		Loop.getInstance().onNext(this::index, Optional.empty());
@@ -53,7 +53,7 @@ public class ListsController extends Controller {
 		try {
 			listService.delete(id);
 		} catch (SQLException | DB.DataFileException e) {
-			Todo.logException(e);
+			TodoApp.logException(e);
 		}
 
 		Loop.getInstance().onNext(this::index, Optional.empty());

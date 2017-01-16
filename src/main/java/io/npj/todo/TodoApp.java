@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * Created by npj on 12/13/16.
  */
-public class Todo {
+public class TodoApp {
 	public static void main(String[] args) {
 		Loop loop = Loop.getInstance();
 		Controller.get(ListsController.class).ifPresent(cont -> {

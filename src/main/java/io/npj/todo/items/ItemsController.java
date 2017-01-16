@@ -3,7 +3,7 @@ package io.npj.todo.items;
 import io.npj.todo.DB;
 import io.npj.todo.mvc.Controller;
 import io.npj.todo.Loop;
-import io.npj.todo.Todo;
+import io.npj.todo.TodoApp;
 import io.npj.todo.lists.ListModel;
 import io.npj.todo.lists.ListService;
 
@@ -31,7 +31,7 @@ public class ItemsController extends Controller {
 				ItemIndexView itemIndexView = new ItemIndexView(list);
 				itemIndexView.render(itemService.fetchAll(list));
 			} catch (SQLException | IOException | DB.DataFileException e) {
-				Todo.logException(e);
+				TodoApp.logException(e);
 			}
 		}
 	}
@@ -49,7 +49,7 @@ public class ItemsController extends Controller {
 			itemService.create(list, item);
 
 		} catch (SQLException | DB.DataFileException e) {
-			Todo.logException(e);
+			TodoApp.logException(e);
 		}
 
 		Map<String, String> indexParams = new HashMap<>();
@@ -62,7 +62,7 @@ public class ItemsController extends Controller {
 			ListModel list = getList(params.get());
 			itemService.delete(list, Integer.valueOf(params.get().get("id")));
 		} catch (SQLException | DB.DataFileException e) {
-			Todo.logException(e);
+			TodoApp.logException(e);
 		}
 
 		Map<String, String> indexParams = new HashMap<>();

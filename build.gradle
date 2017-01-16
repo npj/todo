@@ -6,7 +6,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 sourceCompatibility = 1.8
-mainClassName = "io.npj.todo.Todo"
+mainClassName = "io.npj.todo.TodoApp"
 
 repositories {
     mavenCentral()
