@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public class TodoApp implements Runnable {
 	@Singleton
-	@Component(modules = { TodoModule.class })
+	@Component(modules = { DBModule.class })
 	public interface TodoControllers {
 		ListsController listsController();
 		ItemsController itemsController();
