@@ -16,7 +16,7 @@ import java.util.List;
  * Created by npj on 12/12/16.
  */
 public class ListService extends Service {
-	public ListModel fetchOne(int listId) throws SQLException {
+	public ListModel fetchOne(int listId) throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_lists WHERE id = ?";
 		final Connection conn = DB.getInstance().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -27,7 +27,7 @@ public class ListService extends Service {
 		return populateList(res);
 	}
 
-	public List<ListModel> fetchAll() throws SQLException {
+	public List<ListModel> fetchAll() throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_lists";
 		final Connection conn = DB.getInstance().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class ListService extends Service {
 		return results;
 	}
 
-	public boolean create(ListModel list) throws SQLException {
+	public boolean create(ListModel list) throws SQLException, DB.DataFileException {
 		DB db = DB.getInstance();
 
 		PreparedStatement stmt = db.prepareInsert(
@@ -69,7 +69,7 @@ public class ListService extends Service {
 		}
 	}
 
-	public void delete(Integer id) throws SQLException {
+	public void delete(Integer id) throws SQLException, DB.DataFileException {
 		DB db = DB.getInstance();
 		Connection conn = db.getConnection();
 
@@ -87,7 +87,7 @@ public class ListService extends Service {
 		}
 	}
 
-	private ListModel populateList(ResultSet res) throws SQLException {
+	private ListModel populateList(ResultSet res) throws SQLException, DB.DataFileException {
 		ListModel list = new ListModel();
 		list.setId(res.getInt("id"));
 		list.setName(res.getString("name"));

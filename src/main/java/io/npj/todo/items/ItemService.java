@@ -17,7 +17,7 @@ import java.util.List;
  * Created by pbrindisi on 12/21/16.
  */
 public class ItemService extends Service {
-	public List<ItemModel> fetchAll(ListModel list) throws SQLException {
+	public List<ItemModel> fetchAll(ListModel list) throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_items WHERE list_id = ?";
 		final Connection conn = DB.getInstance().getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -38,7 +38,7 @@ public class ItemService extends Service {
 		return results;
 	}
 
-	public boolean create(ListModel list, ItemModel item) throws SQLException {
+	public boolean create(ListModel list, ItemModel item) throws SQLException, DB.DataFileException {
 		DB db = DB.getInstance();
 
 		PreparedStatement stmt = db.prepareInsert(
@@ -67,7 +67,7 @@ public class ItemService extends Service {
 		}
 	}
 
-	public void delete(ListModel list, Integer id) throws SQLException {
+	public void delete(ListModel list, Integer id) throws SQLException, DB.DataFileException {
 		DB db = DB.getInstance();
 		Connection conn = db.getConnection();
 

@@ -1,26 +1,33 @@
 package io.npj.todo;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
 import java.sql.*;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Created by npj on 12/12/16.
  */
 public class DB {
-	protected static DB instance = null;
-	protected static String DATA_DIR = ".todo";
+	public static class DataFileException extends Exception {
+		DataFileException(String msg) {
+			super(msg);
+		}
+	}
 
-	protected Connection connection = null;
+	private static DB instance = null;
+	private static String DATA_DIR = ".todo";
 
-	public static DB getInstance() throws SQLException {
+	private Connection connection = null;
+
+	public static DB getInstance() throws SQLException, DataFileException {
 		if (instance == null) {
 			instance = new DB();
 		}
 		return instance;
 	}
 
-	protected DB() throws SQLException {
+	private DB() throws SQLException, DataFileException {
 		connectDB();
 		createTables();
 	}
@@ -30,33 +37,18 @@ public class DB {
 	}
 
 	public PreparedStatement prepareInsert(String tableName, String[] columns) throws SQLException {
-		StringBuilder builder = new StringBuilder("INSERT INTO ")
-				.append(tableName)
-				.append(" (");
-
-		builder.append(String.join(",", columns));
-		builder.append(") VALUES (");
-		builder.append(String.join(",", Arrays.stream(columns).map(c -> "?").collect(Collectors.toList())));
-		builder.append(")");
-
-		return connection.prepareStatement(
-			builder.toString(),
-			PreparedStatement.RETURN_GENERATED_KEYS
-		);
+		String cols = String.join(",", columns);
+	    String vals = StringUtils.repeat("?", ",", columns.length);
+	    String sql  = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, cols, vals);
+		return connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 	}
 
 	public void commit() throws SQLException {
 		connection.commit();
 	}
 
-	private void connectDB() throws SQLException {
-		String connectionUri = new StringBuilder("jdbc:sqlite:")
-				.append(System.getProperty("user.home"))
-				.append("/")
-				.append(DATA_DIR)
-				.append("/todo.sqlite")
-				.toString();
-
+	private void connectDB() throws SQLException, DataFileException {
+		String connectionUri = String.format("jdbc:sqlite:%s/todo.sqlite", buildDataDirectory());
 		connection = DriverManager.getConnection(connectionUri);
 		connection.setAutoCommit(false);
 	}
@@ -67,28 +59,34 @@ public class DB {
 	}
 
 	private void createListsTable() throws SQLException {
-		String sql = new StringBuilder("CREATE TABLE IF NOT EXISTS todo_lists (")
-				.append("id INTEGER PRIMARY KEY AUTOINCREMENT")
-				.append(", name TEXT NOT NULL")
-				.append(", created_at TEXT NOT NULL")
-				.append(", updated_at TEXT NOT NULL")
-				.append(")")
-				.toString();
+		String sql = "CREATE TABLE IF NOT EXISTS todo_lists (" +
+				"  id INTEGER PRIMARY KEY AUTOINCREMENT" +
+				", name TEXT NOT NULL" +
+				", created_at TEXT NOT NULL" +
+				", updated_at TEXT NOT NULL" +
+				")";
 
 		connection.createStatement().executeUpdate(sql);
 	}
 
 	private void createItemsTable() throws SQLException {
-		String sql = new StringBuilder("CREATE TABLE IF NOT EXISTS todo_items (")
-				.append("id INTEGER PRIMARY KEY AUTOINCREMENT")
-				.append(", list_id INTEGER NOT NULL")
-				.append(", item_text TEXT NOT NULL")
-				.append(", completed_at TEXT NULL")
-				.append(", created_at TEXT NOT NULL")
-				.append(", updated_at TEXT NOT NULL")
-				.append(")")
-				.toString();
+		String sql = "CREATE TABLE IF NOT EXISTS todo_items (" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT" +
+				", list_id INTEGER NOT NULL" +
+				", item_text TEXT NOT NULL" +
+				", completed_at TEXT NULL" +
+				", created_at TEXT NOT NULL" +
+				", updated_at TEXT NOT NULL" +
+				")";
 
 		connection.createStatement().executeUpdate(sql);
+	}
+
+	private String buildDataDirectory() throws DataFileException {
+		File path = new File(System.getProperty("user.home"), DATA_DIR);
+		if (!path.exists() && !path.mkdirs()) {
+		    throw new DataFileException(String.format("unable to create data directory: %s", path.toString()));
+		}
+		return path.toString();
 	}
 }

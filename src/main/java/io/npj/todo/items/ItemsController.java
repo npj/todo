@@ -1,5 +1,6 @@
 package io.npj.todo.items;
 
+import io.npj.todo.DB;
 import io.npj.todo.mvc.Controller;
 import io.npj.todo.Loop;
 import io.npj.todo.Todo;
@@ -29,7 +30,7 @@ public class ItemsController extends Controller {
 				ListModel list = getList(params.get());
 				ItemIndexView itemIndexView = new ItemIndexView(list);
 				itemIndexView.render(itemService.fetchAll(list));
-			} catch (SQLException | IOException e) {
+			} catch (SQLException | IOException | DB.DataFileException e) {
 				Todo.logException(e);
 			}
 		}
@@ -47,7 +48,7 @@ public class ItemsController extends Controller {
 			item.setName(name);
 			itemService.create(list, item);
 
-		} catch (SQLException e) {
+		} catch (SQLException | DB.DataFileException e) {
 			Todo.logException(e);
 		}
 
@@ -60,7 +61,7 @@ public class ItemsController extends Controller {
 		try {
 			ListModel list = getList(params.get());
 			itemService.delete(list, Integer.valueOf(params.get().get("id")));
-		} catch (SQLException e) {
+		} catch (SQLException | DB.DataFileException e) {
 			Todo.logException(e);
 		}
 
@@ -69,7 +70,7 @@ public class ItemsController extends Controller {
 		Loop.getInstance().onNext(this::index, Optional.of(indexParams));
 	}
 
-	private ListModel getList(Map<String, String> params) throws SQLException {
+	private ListModel getList(Map<String, String> params) throws SQLException, DB.DataFileException {
 		return listService.fetchOne(Integer.valueOf(params.get("list_id")));
 	}
 }
