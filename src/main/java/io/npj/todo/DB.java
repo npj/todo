@@ -5,9 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.sql.*;
 
-/**
- * Created by npj on 12/12/16.
- */
 public class DB {
 	public static class DataFileException extends Exception {
 		DataFileException(String msg) {
@@ -47,7 +44,7 @@ public class DB {
 		connection.commit();
 	}
 
-	protected String getConnectionUri() throws DataFileException {
+	private String getConnectionUri() throws DataFileException {
         return String.format("jdbc:sqlite:%s/todo.sqlite", buildDataDirectory());
     }
 
