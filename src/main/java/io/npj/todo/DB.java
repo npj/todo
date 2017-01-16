@@ -47,9 +47,12 @@ public class DB {
 		connection.commit();
 	}
 
+	protected String getConnectionUri() throws DataFileException {
+        return String.format("jdbc:sqlite:%s/todo.sqlite", buildDataDirectory());
+    }
+
 	private void connectDB() throws SQLException, DataFileException {
-		String connectionUri = String.format("jdbc:sqlite:%s/todo.sqlite", buildDataDirectory());
-		connection = DriverManager.getConnection(connectionUri);
+		connection = DriverManager.getConnection(getConnectionUri());
 		connection.setAutoCommit(false);
 	}
 
