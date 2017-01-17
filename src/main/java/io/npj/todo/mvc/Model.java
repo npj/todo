@@ -4,9 +4,6 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-/**
- * Created by npj on 12/12/16.
- */
 public abstract class Model {
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

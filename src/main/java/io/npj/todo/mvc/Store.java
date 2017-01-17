@@ -9,9 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-/**
- * Created by npj on 12/12/16.
- */
 public class Store {
 	private Optional<DB> db;
 

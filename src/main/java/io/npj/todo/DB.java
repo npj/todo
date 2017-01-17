@@ -12,6 +12,7 @@ public class DB {
 		}
 	}
 
+	private String connectionUri;
 	private static DB instance = null;
 	private static String DATA_DIR = ".todo";
 
@@ -25,8 +26,13 @@ public class DB {
 	}
 
 	private DB() throws SQLException, DataFileException {
+	    this.connectionUri = getDefaultConnectionUri();
 		connectDB();
 		createTables();
+	}
+
+	public void setConnectionUri(String uri) {
+	    this.connectionUri = uri;
 	}
 
 	public Connection getConnection() {
@@ -44,9 +50,13 @@ public class DB {
 		connection.commit();
 	}
 
-	private String getConnectionUri() throws DataFileException {
-        return String.format("jdbc:sqlite:%s/todo.sqlite", buildDataDirectory());
+	protected String getConnectionUri() {
+        return connectionUri;
     }
+
+	protected String getDefaultConnectionUri() throws DataFileException {
+		return String.format("jdbc:sqlite:%s/todo.sqlite", buildDataDirectory());
+	}
 
 	private void connectDB() throws SQLException, DataFileException {
 		connection = DriverManager.getConnection(getConnectionUri());

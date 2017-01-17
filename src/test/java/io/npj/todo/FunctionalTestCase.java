@@ -6,16 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Created by pbrindisi on 12/23/16.
- */
-public abstract class DbTestCase extends TestCase {
+public abstract class FunctionalTestCase extends TestCase {
+	private TestTodoComponent testTodoComponent;
 	protected DB testDB;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		testDB = new TestDB();
+		testTodoComponent = DaggerTestTodoComponent.create();
+		testDB = testTodoComponent.db().get();
 	}
 
 	@Override

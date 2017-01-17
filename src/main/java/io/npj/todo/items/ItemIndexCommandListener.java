@@ -11,9 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/21/16.
- */
 public class ItemIndexCommandListener implements ConsoleView.CommandListener {
 	private ListModel list = null;
 

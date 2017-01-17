@@ -14,9 +14,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by pbrindisi on 12/24/16.
- */
 public class ItemsControllerTest extends TestCase {
 	private ListService mockListService;
 	private ItemService mockItemService;

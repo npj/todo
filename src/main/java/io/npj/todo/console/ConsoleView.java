@@ -6,9 +6,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by pbrindisi on 12/19/16.
- */
 public abstract class ConsoleView {
 	protected final Console console = new Console();
 

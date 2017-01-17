@@ -3,9 +3,6 @@ package io.npj.todo.items;
 import io.npj.todo.mvc.Model;
 import io.npj.todo.lists.ListModel;
 
-/**
- * Created by pbrindisi on 12/21/16.
- */
 public class ItemModel extends Model {
 	private final ListModel list;
 	private String name = null;

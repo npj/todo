@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/16/16.
- */
 public abstract class Controller {
 	private static Map<Class<? extends Controller>, Controller> controllers = new HashMap<>();
 

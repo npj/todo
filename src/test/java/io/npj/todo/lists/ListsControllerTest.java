@@ -12,9 +12,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by pbrindisi on 12/23/16.
- */
 public class ListsControllerTest extends TestCase {
 	ListService mockListService;
 	ListIndexView mockListIndexView;

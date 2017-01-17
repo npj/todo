@@ -6,16 +6,12 @@ import io.npj.todo.Loop;
 import io.npj.todo.TodoApp;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/16/16.
- */
 @Singleton
 public class ListsController extends Controller {
 	private final ListStore listStore;

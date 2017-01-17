@@ -5,9 +5,6 @@ import io.npj.todo.mvc.Action;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/20/16.
- */
 public class Loop {
 	private static Loop instance;
 

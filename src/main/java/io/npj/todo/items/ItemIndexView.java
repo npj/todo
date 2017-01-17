@@ -6,9 +6,6 @@ import io.npj.todo.lists.ListModel;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by pbrindisi on 12/21/16.
- */
 public class ItemIndexView extends ConsoleView {
 	private static final String[] commands = new String[]{
 			"create [item text]",

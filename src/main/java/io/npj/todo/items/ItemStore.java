@@ -15,9 +15,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/21/16.
- */
 public class ItemStore extends Store {
 	@Inject
 	public ItemStore(Optional<DB> db) {

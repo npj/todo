@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/16/16.
- */
 @Singleton
 public class ItemsController extends Controller {
 	private final ListStore listStore;

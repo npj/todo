@@ -10,9 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Created by pbrindisi on 12/19/16.
- */
 public class ListIndexCommandListener implements ConsoleView.CommandListener {
 	public void dispatchCommand(Pair<String, String> command) throws ConsoleView.CommandException {
 		Map<String, String> params = new HashMap<>();

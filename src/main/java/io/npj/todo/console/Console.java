@@ -6,9 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-/**
- * Created by npj on 12/13/16.
- */
 public class Console {
 	private static final int CONSOLE_WIDTH = 80;
 

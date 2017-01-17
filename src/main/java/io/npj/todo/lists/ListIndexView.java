@@ -6,9 +6,6 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by pbrindisi on 12/19/16.
- */
 public class ListIndexView extends ConsoleView {
 	private static final String[] commands = new String[]{
 			"view   [list id]",
