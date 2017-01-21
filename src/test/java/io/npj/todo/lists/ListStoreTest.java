@@ -7,13 +7,13 @@ import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.Optional;
 
-public class ListServiceTest extends FunctionalTestCase {
-	ListService listService;
+public class ListStoreTest extends FunctionalTestCase {
+	ListStore listStore;
 
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		listService = new ListService(Optional.of(testDB));
+		listStore = new ListStore(Optional.of(testDB));
 	}
 
 	/*
@@ -35,7 +35,7 @@ public class ListServiceTest extends FunctionalTestCase {
 
 		int lastId = getLastInsertId(stmt);
 
-		ListModel model = listService.fetchOne(lastId);
+		ListModel model = listStore.fetchOne(lastId);
 		assertEquals(lastId, model.getId());
 		assertEquals(name, model.getName());
 		assertEquals(Model.unparseDate(createdAt), Model.unparseDate(model.getCreatedAt()));

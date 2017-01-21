@@ -1,7 +1,7 @@
 package io.npj.todo.items;
 
 import io.npj.todo.lists.ListModel;
-import io.npj.todo.lists.ListService;
+import io.npj.todo.lists.ListStore;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -15,19 +15,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ItemsControllerTest extends TestCase {
-	private ListService mockListService;
-	private ItemService mockItemService;
+	private ListStore mockListStore;
+	private ItemStore mockItemStore;
 	private ItemViewFactory mockItemViewFactory;
 	private ItemIndexView mockItemIndexView;
 	private ItemsController itemsController;
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mockListService = mock(ListService.class);
-		mockItemService = mock(ItemService.class);
+		mockListStore = mock(ListStore.class);
+		mockItemStore = mock(ItemStore.class);
 		mockItemViewFactory = mock(ItemViewFactory.class);
 		mockItemIndexView = mock(ItemIndexView.class);
-		itemsController = new ItemsController(mockListService, mockItemService, mockItemViewFactory);
+		itemsController = new ItemsController(mockListStore, mockItemStore, mockItemViewFactory);
 	}
 
 	public void testIndex() throws Exception {
@@ -35,9 +35,9 @@ public class ItemsControllerTest extends TestCase {
 		ListModel list = mock(ListModel.class);
 		List<ItemModel> items = new ArrayList<>();
 
-		when(mockListService.fetchOne(listId)).thenReturn(list);
+		when(mockListStore.fetchOne(listId)).thenReturn(list);
 		when(mockItemViewFactory.createIndexView(list)).thenReturn(mockItemIndexView);
-		when(mockItemService.fetchAll(list)).thenReturn(items);
+		when(mockItemStore.fetchAll(list)).thenReturn(items);
 
 		Map<String, String> params = new HashMap<>();
 		params.put("list_id", String.valueOf(listId));
