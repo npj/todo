@@ -2,7 +2,7 @@ package io.npj.todo.lists;
 
 import io.npj.todo.DB;
 import io.npj.todo.mvc.Model;
-import io.npj.todo.mvc.Service;
+import io.npj.todo.mvc.Store;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by npj on 12/12/16.
  */
-public class ListService extends Service {
+public class ListStore extends Store {
 	public ListModel fetchOne(int listId) throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_lists WHERE id = ?";
 		final Connection conn = DB.getInstance().getConnection();

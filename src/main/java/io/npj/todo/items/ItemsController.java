@@ -1,11 +1,11 @@
 package io.npj.todo.items;
 
 import io.npj.todo.DB;
+import io.npj.todo.lists.ListStore;
 import io.npj.todo.mvc.Controller;
 import io.npj.todo.Loop;
 import io.npj.todo.TodoApp;
 import io.npj.todo.lists.ListModel;
-import io.npj.todo.lists.ListService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,8 +17,8 @@ import java.util.Optional;
  * Created by pbrindisi on 12/16/16.
  */
 public class ItemsController extends Controller {
-	private ListService listService = new ListService();
-	private ItemService itemService = new ItemService();
+	private ListStore listStore = new ListStore();
+	private ItemStore itemStore = new ItemStore();
 
 	public ItemsController() {
 		super("ItemsController");
@@ -29,7 +29,7 @@ public class ItemsController extends Controller {
 			try {
 				ListModel list = getList(params.get());
 				ItemIndexView itemIndexView = new ItemIndexView(list);
-				itemIndexView.render(itemService.fetchAll(list));
+				itemIndexView.render(itemStore.fetchAll(list));
 			} catch (SQLException | IOException | DB.DataFileException e) {
 				TodoApp.logException(e);
 			}
@@ -46,7 +46,7 @@ public class ItemsController extends Controller {
 			ListModel list = getList(params.get());
 			ItemModel item = new ItemModel(list);
 			item.setName(name);
-			itemService.create(list, item);
+			itemStore.create(list, item);
 
 		} catch (SQLException | DB.DataFileException e) {
 			TodoApp.logException(e);
@@ -60,7 +60,7 @@ public class ItemsController extends Controller {
 	public void delete(Optional<Map<String, String>> params) {
 		try {
 			ListModel list = getList(params.get());
-			itemService.delete(list, Integer.valueOf(params.get().get("id")));
+			itemStore.delete(list, Integer.valueOf(params.get().get("id")));
 		} catch (SQLException | DB.DataFileException e) {
 			TodoApp.logException(e);
 		}
@@ -71,6 +71,6 @@ public class ItemsController extends Controller {
 	}
 
 	private ListModel getList(Map<String, String> params) throws SQLException, DB.DataFileException {
-		return listService.fetchOne(Integer.valueOf(params.get("list_id")));
+		return listStore.fetchOne(Integer.valueOf(params.get("list_id")));
 	}
 }

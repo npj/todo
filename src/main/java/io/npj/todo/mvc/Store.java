@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Created by npj on 12/12/16.
  */
-public class Service {
+public class Store {
 	protected boolean doInsert(PreparedStatement stmt, Model model) throws SQLException {
 		if (stmt.executeUpdate() <= 0) {
 			return false;

@@ -2,7 +2,7 @@ package io.npj.todo.items;
 
 import io.npj.todo.DB;
 import io.npj.todo.mvc.Model;
-import io.npj.todo.mvc.Service;
+import io.npj.todo.mvc.Store;
 import io.npj.todo.lists.ListModel;
 
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by pbrindisi on 12/21/16.
  */
-public class ItemService extends Service {
+public class ItemStore extends Store {
 	public List<ItemModel> fetchAll(ListModel list) throws SQLException, DB.DataFileException {
 		final String sql = "SELECT * FROM todo_items WHERE list_id = ?";
 		final Connection conn = DB.getInstance().getConnection();

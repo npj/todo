@@ -14,7 +14,7 @@ import java.util.Optional;
  * Created by pbrindisi on 12/16/16.
  */
 public class ListsController extends Controller {
-	private final ListService listService = new ListService();
+	private final ListStore listStore = new ListStore();
 
 	public ListsController() {
 		super("ListsController");
@@ -24,7 +24,7 @@ public class ListsController extends Controller {
 	public void index(Optional<Map<String, String>> params) {
 		try {
 			ListIndexView listIndexView = new ListIndexView();
-			listIndexView.render(listService.fetchAll());
+			listIndexView.render(listStore.fetchAll());
 		} catch (SQLException | DB.DataFileException | IOException e) {
 			TodoApp.logException(e);
 		}
@@ -39,7 +39,7 @@ public class ListsController extends Controller {
 		try {
 			ListModel list = new ListModel();
 			list.setName(name);
-			listService.create(list);
+			listStore.create(list);
 		} catch(SQLException | DB.DataFileException e) {
 			TodoApp.logException(e);
 		}
@@ -51,7 +51,7 @@ public class ListsController extends Controller {
 		final int id = Integer.valueOf(params.get().get("id"));
 
 		try {
-			listService.delete(id);
+			listStore.delete(id);
 		} catch (SQLException | DB.DataFileException e) {
 			TodoApp.logException(e);
 		}
