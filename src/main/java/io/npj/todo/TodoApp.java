@@ -13,7 +13,6 @@ public class TodoApp implements Runnable {
 		TodoComponent todoComponent = DaggerTodoComponent.create();
 		Loop loop = Loop.getInstance();
 
-		/* in the future we could use reflection to discover all the controller methods and register them */
 		Controller.register(todoComponent.listsController());
 		Controller.register(todoComponent.itemsController());
 
