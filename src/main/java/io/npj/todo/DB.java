@@ -25,14 +25,19 @@ public class DB {
 		return instance;
 	}
 
-	private DB() throws SQLException, DataFileException {
-	    this.connectionUri = getDefaultConnectionUri();
-		connectDB();
-		createTables();
+	public DB(String connectionUri) throws SQLException, DataFileException {
+		this.connectionUri = connectionUri;
+		initialize();
 	}
 
-	public void setConnectionUri(String uri) {
-	    this.connectionUri = uri;
+	private DB() throws SQLException, DataFileException {
+	    this.connectionUri = getDefaultConnectionUri();
+	    initialize();
+	}
+
+	private void initialize() throws SQLException, DataFileException {
+		connectDB();
+		createTables();
 	}
 
 	public Connection getConnection() {

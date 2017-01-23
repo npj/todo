@@ -10,9 +10,7 @@ import java.util.Optional;
 public class TestDBModule {
     @Provides @Singleton static Optional<DB> provideDB() {
         try {
-            DB db = DB.getInstance();
-            db.setConnectionUri("jdbc:sqlite:");
-            return Optional.of(db);
+            return Optional.of(new DB("jdbc:sqlite:"));
         } catch(SQLException | DB.DataFileException e) {
             return Optional.empty();
         }
